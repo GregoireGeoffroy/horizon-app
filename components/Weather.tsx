@@ -9,7 +9,11 @@ interface WeatherData {
   icon: string;
 }
 
-const Weather = () => {
+interface WeatherProps {
+  unit: 'celsius' | 'fahrenheit';
+}
+
+const Weather = ({ unit }: WeatherProps) => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +22,7 @@ const Weather = () => {
     const getWeather = async (lat: number, lon: number) => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit === 'fahrenheit' ? 'imperial' : 'metric'}&appid=${process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY}`
         );
 
         if (!response.ok) {
@@ -78,6 +82,13 @@ const Weather = () => {
     }
   };
 
+  const formatTemperature = (temp: number): string => {
+    if (unit === 'fahrenheit') {
+      return `${Math.round(temp * 9/5 + 32)}°F`;
+    }
+    return `${Math.round(temp)}°C`;
+  };
+
   if (loading) {
     return (
       <div className="backdrop-blur-bg rounded-lg p-3 text-white">
@@ -99,7 +110,7 @@ const Weather = () => {
   return (
     <div className="backdrop-blur-bg rounded-lg p-3 text-white flex items-center gap-2">
       {getWeatherIcon(weather.condition)}
-      <span className="text-2xl font-semibold">{weather.temp}°C</span>
+      <span className="text-2xl font-semibold">{formatTemperature(weather.temp)}</span>
     </div>
   );
 };
