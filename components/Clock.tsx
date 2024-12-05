@@ -41,7 +41,7 @@ const Clock: React.FC<ClockProps> = ({
   }, [format24h, showSeconds]);
 
   return (
-    <div className={`flex items-center justify-center ${className}`}>
+    <div className={`clock text-shadow text-white ${className}`}>
       {currentTime}
     </div>
   );

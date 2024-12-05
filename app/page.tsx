@@ -93,7 +93,7 @@ export default function Home() {
           <Clock 
             format24h={preferences.clock.format24h}
             showSeconds={preferences.clock.showSeconds}
-            className="text-7xl md:text-8xl lg:text-9xl text-shadow text-white"
+            className="flex items-center justify-center"
           />
           <Quote />
         </div>
