@@ -1,5 +1,6 @@
 import Clock from "@/components/Clock";
 import Background from "@/components/Background";
+import Weather from "@/components/Weather";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
       <main className="relative z-10 min-h-screen flex flex-col items-center justify-between p-8">
         {/* Top Section */}
         <div className="w-full flex justify-end p-4">
-          {/* Weather will go here */}
+          <Weather />
         </div>
 
         {/* Center Section */}
